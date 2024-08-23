@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Suitability Prediction</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto px-4 py-10">
+        <div class="max-w-5xl mx-auto bg-white p-8 rounded shadow">
+            <div class="flex justify-center">
+                <img class="h-24" src="/static/farmfuture-logo-nbg.png" alt="FarmFuture Logo">
+            </div>
+                <h1 class="text-3xl font-semibold text-center w-full">Crop Suitability Prediction</h1>
+            <div class="md:flex md:space-x-3 mt-5">
+
+                <div id="map" class="w-full h-48 md:h-[21.5rem] mt-4 rounded-md"></div>
+                <form id="prediction-form" class="space-y-4 md:w-96 py-2">
+                    <div>
+                        <label for="latitude" class="block text-sm font-medium text-gray-700">Latitude</label>
+                        <input type="text" name="latitude" id="latitude" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="longitude" class="block text-sm font-medium text-gray-700">Longitude</label>
+                        <input type="text" name="longitude" id="longitude" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="month" class="block text-sm font-medium text-gray-700">Month (Optional)</label>
+                        <select name="month" id="month"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="crop" class="block text-sm font-medium text-gray-700">Crop (Optional)</label>
+                        <input type="text" name="crop" id="crop"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Predict
+                    </button>
+                </form>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loading-spinner" class="hidden flex justify-center items-center mt-6">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+            </div>
+
+            <div id="results" class="mt-6"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            // Show loading spinner
+            const loadingSpinner = document.getElementById('loading-spinner');
+            loadingSpinner.classList.remove('hidden');
+
+            // Clear previous results
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML = '';
+
+            try {
+                const form = event.target;
+                const formData = new FormData(form);
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                // Hide loading spinner
+                loadingSpinner.classList.add('hidden');
+
+                // Render the suitability results
+                renderSuitability(result.suitability || {});
+            } catch (error) {
+                // Hide loading spinner on error
+                loadingSpinner.classList.add('hidden');
+                resultDiv.innerHTML = '<p class="text-red-500">An error occurred while predicting. Please try again.</p>';
+            }
+        });
+
+        function renderSuitability(suitability) {
+            const resultDiv = document.getElementById('results');
+            const monthNames = {
+                "1": "January",
+                "2": "February",
+                "3": "March",
+                "4": "April",
+                "5": "May",
+                "6": "June",
+                "7": "July",
+                "8": "August",
+                "9": "September",
+                "10": "October",
+                "11": "November",
+                "12": "December"
+            };
+
+            Object.keys(suitability).forEach(month => {
+                const monthData = suitability[month];
+                const monthDiv = document.createElement('div');
+                monthDiv.classList.add('mb-4');
+
+                const monthTitle = document.createElement('h2');
+                monthTitle.classList.add('text-lg', 'font-semibold', 'text-indigo-700', 'mb-2');
+                monthTitle.textContent = `Month: ${monthNames[month] || month}`;
+
+                const cropList = document.createElement('ul');
+                cropList.classList.add('list-disc', 'list-inside');
+
+                Object.keys(monthData).forEach(crop => {
+                    const cropItem = document.createElement('li');
+                    cropItem.textContent = `${crop}: ${monthData[crop]}% suitability`;
+                    cropList.appendChild(cropItem);
+                });
+
+                monthDiv.appendChild(monthTitle);
+                monthDiv.appendChild(cropList);
+                resultDiv.appendChild(monthDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+            }).addTo(map);
+
+            let marker;
+
+            map.on('click', function (e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+
+                if (marker) {
+                    marker.setLatLng(e.latlng);
+                } else {
+                    marker = L.marker(e.latlng).addTo(map);
+                }
+
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lng;
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
