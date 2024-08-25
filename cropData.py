@@ -5,17 +5,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 100, 'P': 60, 'K': 60},
         'temperature_range': {'min': 20, 'max': 35},
         'annual_rainfall_mm': "1200, 1500",
-        'irrigation_method': 'Flood',
         'water_ph': {'min': 5.5, 'max': 6.5},
         'sunlight_hours_per_day': "6, 8",
         'humidity_range_percent': {'min': 70, 'max': 90},
         'altitude_m': "0, 1500",
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'},
-        'pest_disease_presence': ['Blast', 'Brown spot'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': True},
-        'organic_matter_content_percent': "2.0, 3.0",
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': "16, 20"
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
     },
     'wheat': {
         'soil_type': ['Loamy'],
@@ -23,17 +17,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 50, 'P': 30, 'K': 40},
         'temperature_range': {'min': 10, 'max': 25},
         'annual_rainfall_mm': {'min': 500, 'max': 750},
-        'irrigation_method': ['Sprinkler', 'Flood'],
         'water_ph': {'min': 6.5, 'max': 7.5},
         'sunlight_hours_per_day': 8,
         'humidity_range_percent': {'min': 40, 'max': 70},
         'altitude_m': {'min': 0, 'max': 1000},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'N'},
-        'pest_disease_presence': ['Wheat rust'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 16, 'max': 24}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'N'}
     },
     'maize': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -41,17 +29,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 80, 'P': 40, 'K': 60},
         'temperature_range': {'min': 18, 'max': 27},
         'annual_rainfall_mm': {'min': 500, 'max': 800},
-        'irrigation_method': ['Furrow', 'Drip'],
         'water_ph': {'min': 6.0, 'max': 7.0},
         'sunlight_hours_per_day': "8, 10",
         'humidity_range_percent': {'min': 50, 'max': 70},
         'altitude_m': {'min': 0, 'max': 2000},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'},
-        'pest_disease_presence': ['Maize weevil', 'Leaf blight'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.5, 'max': 3.5},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 14, 'max': 20}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
     },
     'barley': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -59,17 +41,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 60, 'P': 30, 'K': 50},
         'temperature_range': {'min': 10, 'max': 24},
         'annual_rainfall_mm': {'min': 500, 'max': 600},
-        'irrigation_method': ['Furrow', 'Drip'],
         'water_ph': {'min': 6.0, 'max': 7.5},
         'sunlight_hours_per_day': "8, 10",
         'humidity_range_percent': {'min': 40, 'max': 70},
         'altitude_m': {'min': 0, 'max': 2000},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'N'},
-        'pest_disease_presence': ['Ergot', 'Leaf rust'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 16, 'max': 24}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'N'}
     },
     'sorghum': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -77,17 +53,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 40, 'P': 20, 'K': 40},
         'temperature_range': {'min': 25, 'max': 30},
         'annual_rainfall_mm': {'min': 400, 'max': 600},
-        'irrigation_method': ['Furrow', 'Drip'],
         'water_ph': {'min': 6.0, 'max': 7.5},
         'sunlight_hours_per_day': "8, 10",
         'humidity_range_percent': {'min': 50, 'max': 70},
         'altitude_m': {'min': 0, 'max': 2000},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'E'},
-        'pest_disease_presence': ['Sorghum midge', 'Anthracnose'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 12, 'max': 16}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'E'}
     },
     'millet': {
         'soil_type': ['Sandy', 'Loamy'],
@@ -95,17 +65,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 30, 'P': 20, 'K': 30},
         'temperature_range': {'min': 25, 'max': 30},
         'annual_rainfall_mm': {'min': 300, 'max': 600},
-        'irrigation_method': ['Furrow', 'Drip'],
         'water_ph': {'min': 5.5, 'max': 7.0},
         'sunlight_hours_per_day': "8, 10",
         'humidity_range_percent': {'min': 50, 'max': 70},
         'altitude_m': {'min': 0, 'max': 1500},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'},
-        'pest_disease_presence': ['Millet head miner', 'Downy mildew'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 1.5, 'max': 2.5},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 10, 'max': 12}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
     },
     'rye': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -113,17 +77,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 50, 'P': 30, 'K': 40},
         'temperature_range': {'min': 8, 'max': 22},
         'annual_rainfall_mm': {'min': 500, 'max': 700},
-        'irrigation_method': ['Sprinkler', 'Furrow'],
         'water_ph': {'min': 6.0, 'max': 7.5},
         'sunlight_hours_per_day': "8, 10",
         'humidity_range_percent': {'min': 40, 'max': 70},
         'altitude_m': {'min': 0, 'max': 2000},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'W'},
-        'pest_disease_presence': ['Rye rust', 'Fusarium'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 20, 'max': 24}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'W'}
     },
     'oats': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -131,17 +89,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 60, 'P': 30, 'K': 40},
         'temperature_range': {'min': 15, 'max': 20},
         'annual_rainfall_mm': {'min': 500, 'max': 600},
-        'irrigation_method': ['Sprinkler', 'Furrow'],
         'water_ph': {'min': 6.0, 'max': 7.5},
         'sunlight_hours_per_day': "8, 10",
         'humidity_range_percent': {'min': 50, 'max': 70},
         'altitude_m': {'min': 0, 'max': 2000},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'W'},
-        'pest_disease_presence': ['Oat crown rust', 'Powdery mildew'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 16, 'max': 22}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'W'}
     },
         'pulses': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -149,17 +101,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 30, 'P': 20, 'K': 30},
         'temperature_range': {'min': 20, 'max': 30},
         'annual_rainfall_mm': {'min': 500, 'max': 700},
-        'irrigation_method': ['Furrow', 'Drip'],
         'water_ph': {'min': 6.0, 'max': 7.0},
         'sunlight_hours_per_day': {'min': 6, 'max': 8},
         'humidity_range_percent': {'min': 50, 'max': 70},
         'altitude_m': {'min': 0, 'max': 1500},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'},
-        'pest_disease_presence': ['Pod borer', 'Aphids'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': True},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 12, 'max': 20}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
     },
     'bajra': {
         'soil_type': ['Sandy', 'Loamy'],
@@ -167,17 +113,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 40, 'P': 20, 'K': 30},
         'temperature_range': {'min': 25, 'max': 35},
         'annual_rainfall_mm': {'min': 300, 'max': 500},
-        'irrigation_method': ['Furrow', 'Drip'],
         'water_ph': {'min': 5.5, 'max': 7.0},
         'sunlight_hours_per_day': {'min': 8, 'max': 10},
         'humidity_range_percent': {'min': 50, 'max': 70},
         'altitude_m': {'min': 0, 'max': 1000},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'},
-        'pest_disease_presence': ['Downy mildew', 'Rust'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 10, 'max': 14}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
     },
     'gram': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -185,17 +125,11 @@ crop_recommendations = {
         'soil_nutrients': {'N': 20, 'P': 20, 'K': 20},
         'temperature_range': {'min': 20, 'max': 30},
         'annual_rainfall_mm': {'min': 300, 'max': 500},
-        'irrigation_method': ['Furrow', 'Drip'],
         'water_ph': {'min': 6.0, 'max': 7.5},
         'sunlight_hours_per_day': {'min': 6, 'max': 8},
         'humidity_range_percent': {'min': 40, 'max': 70},
         'altitude_m': {'min': 0, 'max': 1500},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'},
-        'pest_disease_presence': ['Pod borer', 'Wilt'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': True},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 12, 'max': 16}
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
     },
     'tea': {
         'soil_type': ['Loamy', 'Sandy'],
@@ -203,16 +137,23 @@ crop_recommendations = {
         'soil_nutrients': {'N': 60, 'P': 40, 'K': 60},
         'temperature_range': {'min': 20, 'max': 30},
         'annual_rainfall_mm': {'min': 2000, 'max': 3000},
-        'irrigation_method': ['Sprinkler', 'Drip'],
         'water_ph': {'min': 4.5, 'max': 5.5},
         'sunlight_hours_per_day': {'min': 6, 'max': 8},
         'humidity_range_percent': {'min': 70, 'max': 90},
         'altitude_m': {'min': 0, 'max': 1500},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'},
-        'pest_disease_presence': ['Tea mosquito bug', 'Red spider mite'],
-        'soil_microbiology': {'mycorrhizal_fungi': True, 'nitrogen_fixing_bacteria': False},
-        'organic_matter_content_percent': {'min': 2.0, 'max': 3.0},
-        'air_quality_co2_ppm': 400,
-        'harvest_period_weeks': {'min': 24, 'max': 36}
-    }
+        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
+    },
+    'apple': {
+    'soil_type': ['Loamy'],
+    'soil_ph': {'min': 6.0, 'max': 7.0},
+    'soil_nutrients': {'N': 50, 'P': 30, 'K': 40},
+    'temperature_range': {'min': 15, 'max': 24},
+    'annual_rainfall_mm': {'min': 800, 'max': 1200},
+    'water_ph': {'min': 6.5, 'max': 7.0},
+    'sunlight_hours_per_day': {'min': 6, 'max': 8},
+    'humidity_range_percent': {'min': 60, 'max': 80},
+    'altitude_m': {'min': 600, 'max': 1000},
+    'wind_conditions_kmh': {'speed': 5, 'direction': 'NW'}
+ }
+
 }
