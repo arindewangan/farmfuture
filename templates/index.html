@@ -8,12 +8,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
-    <link rel="manifest" href="/static/site.webmanifest">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-
-
+    <!-- Leaflet Control Geocoder -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -22,9 +22,8 @@
             <div class="flex justify-center">
                 <img class="h-24" src="/static/farmfuture-logo-nbg.png" alt="FarmFuture Logo">
             </div>
-                <h1 class="text-3xl font-semibold text-center w-full">Crop Suitability Prediction</h1>
+            <h1 class="text-3xl font-semibold text-center w-full">Crop Suitability Prediction</h1>
             <div class="md:flex md:space-x-3 mt-5">
-
                 <div id="map" class="w-full h-48 md:h-[21.5rem] mt-4 rounded-md"></div>
                 <form id="prediction-form" class="space-y-4 md:w-96 py-2">
                     <div>
@@ -36,25 +35,6 @@
                         <label for="longitude" class="block text-sm font-medium text-gray-700">Longitude</label>
                         <input type="text" name="longitude" id="longitude" required
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="month" class="block text-sm font-medium text-gray-700">Month (Optional)</label>
-                        <select name="month" id="month"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="">Select Month</option>
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
                     </div>
                     <div>
                         <label for="crop" class="block text-sm font-medium text-gray-700">Crop (Optional)</label>
@@ -112,43 +92,22 @@
 
         function renderSuitability(suitability) {
             const resultDiv = document.getElementById('results');
-            const monthNames = {
-                "1": "January",
-                "2": "February",
-                "3": "March",
-                "4": "April",
-                "5": "May",
-                "6": "June",
-                "7": "July",
-                "8": "August",
-                "9": "September",
-                "10": "October",
-                "11": "November",
-                "12": "December"
-            };
+            
+            if (Object.keys(suitability).length === 0) {
+                resultDiv.innerHTML = '<p class="text-gray-500">No suitability data available.</p>';
+                return;
+            }
 
-            Object.keys(suitability).forEach(month => {
-                const monthData = suitability[month];
-                const monthDiv = document.createElement('div');
-                monthDiv.classList.add('mb-4');
+            const suitabilityList = document.createElement('ul');
+            suitabilityList.classList.add('list-disc', 'list-inside');
 
-                const monthTitle = document.createElement('h2');
-                monthTitle.classList.add('text-lg', 'font-semibold', 'text-indigo-700', 'mb-2');
-                monthTitle.textContent = `Month: ${monthNames[month] || month}`;
-
-                const cropList = document.createElement('ul');
-                cropList.classList.add('list-disc', 'list-inside');
-
-                Object.keys(monthData).forEach(crop => {
-                    const cropItem = document.createElement('li');
-                    cropItem.textContent = `${crop}: ${monthData[crop]}% suitability`;
-                    cropList.appendChild(cropItem);
-                });
-
-                monthDiv.appendChild(monthTitle);
-                monthDiv.appendChild(cropList);
-                resultDiv.appendChild(monthDiv);
+            Object.keys(suitability).forEach(crop => {
+                const cropItem = document.createElement('li');
+                cropItem.textContent = `${crop}: ${suitability[crop]}% suitability`;
+                suitabilityList.appendChild(cropItem);
             });
+
+            resultDiv.appendChild(suitabilityList);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -158,24 +117,43 @@
                 maxZoom: 18,
             }).addTo(map);
 
-            let marker;
+            let marker = L.marker([20.5937, 78.9629]).addTo(map);
 
+            // Update marker position when latitude/longitude inputs change
+            document.getElementById('latitude').addEventListener('input', updateMap);
+            document.getElementById('longitude').addEventListener('input', updateMap);
+
+            function updateMap() {
+                const lat = parseFloat(document.getElementById('latitude').value);
+                const lng = parseFloat(document.getElementById('longitude').value);
+
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    marker.setLatLng([lat, lng]);
+                    map.setView([lat, lng], map.getZoom());
+                }
+            }
+
+            // Update latitude/longitude inputs when map is clicked
             map.on('click', function (e) {
                 const lat = e.latlng.lat;
                 const lng = e.latlng.lng;
 
-                if (marker) {
-                    marker.setLatLng(e.latlng);
-                } else {
-                    marker = L.marker(e.latlng).addTo(map);
-                }
+                marker.setLatLng(e.latlng);
 
                 document.getElementById('latitude').value = lat;
                 document.getElementById('longitude').value = lng;
             });
+
+            // Add a search box
+            L.Control.geocoder().addTo(map).on('markgeocode', function (e) {
+                const latlng = e.geocode.center;
+                marker.setLatLng(latlng);
+                map.setView(latlng, 13);
+
+                document.getElementById('latitude').value = latlng.lat;
+                document.getElementById('longitude').value = latlng.lng;
+            });
         });
-
-
     </script>
 </body>
 
