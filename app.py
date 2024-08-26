@@ -303,6 +303,13 @@ def predict_suitability(latitude, longitude, crop=None):
         print(f"Error in predicting suitability: {e}")
         return {'error': str(e)}
 
+# Store status in a global variable
+status = 'Not started'
+ 
+@app.route('/status')
+def status_route():
+    return jsonify(status)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -314,11 +321,35 @@ def predict_route():
     crop = request.form.get('crop')
 
     try:
-        result = predict_suitability(latitude, longitude, crop)
-    except Exception as e:
-        return jsonify({'error': str(e)})
+        global status
+        # Update status and call prediction function
+        status = 'Fetching climate data...'
+        climate_data = fetch_climate_data(latitude, longitude)
+        status = 'Climate data fetched successfully.'
+        
+        status = 'Preparing climate data...'
+        overall_averages = prepare_climate_data(climate_data)
+        status = 'Climate data prepared successfully.'
 
-    return jsonify({'suitability': result})
+        status = 'Fetching altitude data...'
+        altitude = fetch_altitude_data(latitude, longitude)
+        status = f'Altitude: {altitude} meters'
+
+        status = 'Fetching soil data...'
+        soil_data = fetch_soil_data(longitude, latitude)
+        status = f'Soil data Fetched Successfully.'
+
+        status = 'Calculating suitability...'
+        suitability = calculate_suitability(overall_averages, crop_recommendations, altitude, soil_data)
+        status = 'Suitability calculated successfully.'
+
+        if crop:
+            return jsonify({'suitability': {crop: suitability.get(crop, 0)}})
+        return jsonify({'suitability': suitability})
+
+    except Exception as e:
+        status['calculate_suitability'] = 'Error in predicting suitability.'
+        return jsonify({'error': str(e)})
 
 # if __name__ == "__main__":
 #     app.run(debug=True)
