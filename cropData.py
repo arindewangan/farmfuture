@@ -130,30 +130,5 @@ crop_recommendations = {
         'humidity_range_percent': {'min': 40, 'max': 70},
         'altitude_m': {'min': 0, 'max': 1500},
         'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
-    },
-    'tea': {
-        'soil_type': ['Loamy', 'Sandy'],
-        'soil_ph': {'min': 4.5, 'max': 5.5},
-        'soil_nutrients': {'N': 60, 'P': 40, 'K': 60},
-        'temperature_range': {'min': 20, 'max': 30},
-        'annual_rainfall_mm': {'min': 2000, 'max': 3000},
-        'water_ph': {'min': 4.5, 'max': 5.5},
-        'sunlight_hours_per_day': {'min': 6, 'max': 8},
-        'humidity_range_percent': {'min': 70, 'max': 90},
-        'altitude_m': {'min': 0, 'max': 1500},
-        'wind_conditions_kmh': {'speed': 5, 'direction': 'Variable'}
-    },
-    'apple': {
-    'soil_type': ['Loamy'],
-    'soil_ph': {'min': 6.0, 'max': 7.0},
-    'soil_nutrients': {'N': 50, 'P': 30, 'K': 40},
-    'temperature_range': {'min': 15, 'max': 24},
-    'annual_rainfall_mm': {'min': 800, 'max': 1200},
-    'water_ph': {'min': 6.5, 'max': 7.0},
-    'sunlight_hours_per_day': {'min': 6, 'max': 8},
-    'humidity_range_percent': {'min': 60, 'max': 80},
-    'altitude_m': {'min': 600, 'max': 1000},
-    'wind_conditions_kmh': {'speed': 5, 'direction': 'NW'}
- }
-
+    }
 }
